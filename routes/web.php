@@ -6,6 +6,7 @@ use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\TeacherController; // Pastikan untuk menggunakan huruf kapital yang tepat
+use App\Http\Controllers\MapelController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -47,6 +48,16 @@ Route::middleware('auth', 'verified')->group(function () {
         Route::delete('/{id}', [TeacherController::class, 'destroy'])->name('teacher.destroy');
         Route::get('/{id}/detail', [TeacherController::class, 'detail'])->name('teacher.show');
         Route::get('/teachers', [TeacherController::class, 'index'])->name('teacher.index');
+    });
+
+    // route mapel
+    Route::prefix('mapel')->group(function () {
+        Route::get('/', [MapelController::class, 'index'])->name('mapel');
+        Route::get('/create', [MapelController::class, 'create'])->name('mapel.create');
+        Route::post('/store', [MapelController::class, 'store'])->name('mapel.store');
+        Route::get('/{id}/edit', [MapelController::class, 'edit'])->name('mapel.edit');
+        Route::put('/{id}', [MapelController::class, 'update'])->name('mapel.update');
+        Route::delete('/{id}', [MapelController::class, 'destroy'])->name('mapel.destroy');
     });
 });
 

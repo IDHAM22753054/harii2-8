@@ -19,7 +19,7 @@ class TeacherController extends Controller
                 return $query->where('name', 'like', "%{$search}%")
                              ->orWhere('email', 'like', "%{$search}%");
             })
-            ->paginate(10); // Menggunakan pagination untuk menampilkan 10 data per halaman
+            ->paginate(3); // Menggunakan pagination untuk menampilkan 10 data per halaman
 
         return view('backend.teacher.index', compact('teachers'));
     }

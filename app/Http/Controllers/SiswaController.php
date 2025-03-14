@@ -5,13 +5,26 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\StoreSiswaRequest; // Memperbaiki penulisan use statement
 
 class SiswaController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        // Mengambil data siswa dari tabel 'students'
-        $students = DB::table('students')->get();
+        // Mengambil nilai pencarian dari input
+        $search = $request->input('search');
+
+        // Jika ada pencarian, filter berdasarkan nama, email, atau phone
+        if ($search) {
+            $students = DB::table('students')
+                        ->where('name', 'like', '%' . $search . '%')
+                        ->orWhere('email', 'like', '%' . $search . '%')
+                        ->orWhere('phone', 'like', '%' . $search . '%')
+                        ->paginate(3); // Gunakan pagination
+        } else {
+            // Jika tidak ada pencarian, tampilkan semua data
+            $students = DB::table('students')->paginate(10); // Dengan pagination
+        }
 
         return view('backend.siswa.index', compact('students'));
     }
@@ -23,19 +36,8 @@ class SiswaController extends Controller
     }
 
     // Menyimpan data siswa baru
-    public function store(Request $request)
+    public function store(StoreSiswaRequest $request)
     {
-        $validatedData = $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:students',
-            'phone' => 'required|string|max:15',
-            'addres' => 'required|string|max:500', // Menambahkan validasi addres (address)
-            'gender' => 'required|in:male,female', // Menambahkan validasi gender
-            'status' => 'required|in:active,inactive', // Menambahkan validasi status
-            'class' => 'required|string|max:50', // Menambahkan validasi class
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Validasi gambar
-        ]);
-
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $imageName = time() . '.' . $image->getClientOriginalExtension();
@@ -45,7 +47,6 @@ class SiswaController extends Controller
         } else {
             $imagePath = null;
         }
-        
 
         DB::table('students')->insert([
             'name' => $validatedData['name'],
@@ -119,13 +120,13 @@ class SiswaController extends Controller
         $siswa = DB::table('students')->find($id);
 
         // Hapus gambar jika ada
-    if ($siswa->image) {
-    $imagePath = public_path('images/' . $siswa->image); // Get the full path of the image
+        if ($siswa->image) {
+            $imagePath = public_path('images/' . $siswa->image); // Get the full path of the image
 
-    if (file_exists($imagePath)) { // Check if the file exists
-        unlink($imagePath); // Delete the image file
-    }
-}
+            if (file_exists($imagePath)) { // Check if the file exists
+                unlink($imagePath); // Delete the image file
+            }
+        }
 
         DB::table('students')->where('id', $id)->delete();
 

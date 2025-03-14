@@ -21,91 +21,79 @@
                     <i class="icon-arrow-right"></i>
                 </li>
                 <li class="nav-item">
-                    <a href="#">Basic Tables</a>
+                    <a href="#">Siswa</a>
                 </li>
             </ul>
         </div>
         <div class="row">
-
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-header d-flex justify-content-between align-items-center">
-                    <div class="card-title">Tabel Siswa</div>
-                    <a href="{{ route('siswa.create') }}" class="btn btn-success btn-sm">Tambah</a>
-                </div>
-                <div class="card-body">
-                    <div class="responsive">
-                    <table class="table table-head-bg-info table-hover">
-                        <thead>
-                            <tr>
-                                <th scope="col">No</th>
-                                <th scope="col">Nama</th>
-                                <th scope="col">Email</th>
-                                <th scope="col">Phone</th>
-                                <th scope="col">Address</th>
-                                <th scope="col">Gender</th>
-                                <th scope="col">Status</th>
-                                <th scope="col">Class</th>
-                                <th scope="col">Image</th>
-                                <th scope="col">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($students as $index => $student)
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <div class="card-title">Tabel Siswa</div>
+                        <a href="{{ route('siswa.create') }}" class="btn btn-success btn-sm">Tambah</a>
+                    </div>
+                    <div class="card-body">
+                        <form action="{{ route('siswa') }}" method="GET" class="d-flex mb-3">
+                            <input type="text" name="search" class="form-control form-control-sm" placeholder="Cari siswa..." value="{{ request()->search }}">
+                            <button type="submit" class="btn btn-primary btn-sm ms-2">Cari</button>
+                        </form>
+                        
+                        <table class="table table-head-bg-info table-hover">
+                            <thead>
                                 <tr>
-                                    <td>{{ $index + 1 }}</td> <!-- Menampilkan nomor urut -->
-                                    <td>{{ $student->name }}</td>
-                                    <td>{{ $student->email }}</td>
-                                    <td>{{ $student->phone }}</td>
-                                    <td>{{ $student->addres }}</td> <!-- Changed 'address' to 'addres' -->
-                                    <td>{{ $student->gender }}</td>
-                                    <td>{{ $student->status }}</td>
-                                    <td>{{ $student->class }}</td> <!-- Added class field -->
-                                    <td>
-                                        @if ($student->image)
-                                            <img src="{{ url('backend/' . $student->image) }}" alt="Image" width="50" height="50">
-                                        @else
-                                            <img src="{{ url('backend/default.png') }}" alt="No Image" width="50" height="50">
-                                        @endif
-                                    </td>
-                                    <td>
-                                        <a href="{{ route('siswa.edit', $student->id) }}" class="btn btn-warning btn-sm">Edit</a>
-                                        <form action="{{ route('siswa.destroy', $student->id) }}" method="POST" id="delete-form-{{ $student->id }}" class="d-inline">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="button" class="btn btn-danger btn-sm" onclick="confirmDelete({{ $student->id }})">Hapus</button>
-                                        </form>
-                                    </td>
+                                    <th scope="col">No</th>
+                                    <th scope="col">Nama</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">Phone</th>
+                                    <th scope="col">Address</th>
+                                    <th scope="col">Gender</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col">Class</th>
+                                    <th scope="col">Image</th>
+                                    <th scope="col">Actions</th>
                                 </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                    <nav aria-label="Page navigation example">
-                        <ul class="pagination">
-                            <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Previous">
-                                <span aria-hidden="true">&laquo;</span>
-                                <span class="sr-only">Previous</span>
-                            </a>
-                            </li>
-                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Next">
-                                <span aria-hidden="true">&raquo;</span>
-                                <span class="sr-only">Next</span>
-                            </a>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
+                            </thead>
+                            <tbody>
+                                @foreach ($students as $index => $student)
+                                    <tr>
+                                        <td>{{ $index + 1 }}</td>
+                                        <td>{{ $student->name }}</td>
+                                        <td>{{ $student->email }}</td>
+                                        <td>{{ $student->phone }}</td>
+                                        <td>{{ $student->addres }}</td>
+                                        <td>{{ $student->gender }}</td>
+                                        <td>{{ $student->status }}</td>
+                                        <td>{{ $student->class }}</td>
+                                        <td>
+                                            @if ($student->image)
+                                                <img src="{{ url('backend/' . $student->image) }}" alt="Image" width="50" height="50">
+                                            @else
+                                                <img src="{{ url('backend/default.png') }}" alt="No Image" width="50" height="50">
+                                            @endif
+                                        </td>
+                                        <td>
+                                            <a href="{{ route('siswa.edit', $student->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                                            <form action="{{ route('siswa.destroy', $student->id) }}" method="POST" id="delete-form-{{ $student->id }}" class="d-inline">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="button" class="btn btn-danger btn-sm" onclick="confirmDelete({{ $student->id }})">Hapus</button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+
+                        <!-- Pagination -->
+                        <div class="d-flex justify-content-center">
+                            {{ $students->links() }}
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
 @endsection
 
 @section('script')

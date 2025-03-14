@@ -18,7 +18,7 @@
                             <label for="name" class="col-md-4 col-form-label text-md-right">Name</label>
 
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autofocus>
+                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}">
 
                                 @error('name')
                                     <span class="invalid-feedback" role="alert">
@@ -32,7 +32,7 @@
                             <label for="email" class="col-md-4 col-form-label text-md-right">Email</label>
 
                             <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required>
+                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}">
 
                                 @error('email')
                                     <span class="invalid-feedback" role="alert">
@@ -46,7 +46,7 @@
                             <label for="phone" class="col-md-4 col-form-label text-md-right">Phone</label>
 
                             <div class="col-md-6">
-                                <input id="phone" type="text" class="form-control @error('phone') is-invalid @enderror" name="phone" value="{{ old('phone') }}" required>
+                                <input id="phone" type="text" class="form-control @error('phone') is-invalid @enderror" name="phone" value="{{ old('phone') }}">
 
                                 @error('phone')
                                     <span class="invalid-feedback" role="alert">
@@ -61,7 +61,7 @@
                             <label for="addres" class="col-md-4 col-form-label text-md-right">Addres</label>
 
                             <div class="col-md-6">
-                                <textarea id="addres" class="form-control @error('addres') is-invalid @enderror" name="addres" required>{{ old('addres') }}</textarea>
+                                <textarea id="addres" class="form-control @error('addres') is-invalid @enderror" name="addres">{{ old('addres') }}</textarea>
 
                                 @error('addres')
                                     <span class="invalid-feedback" role="alert">
@@ -75,7 +75,7 @@
                             <label for="gender" class="col-md-4 col-form-label text-md-right">Gender</label>
 
                             <div class="col-md-6">
-                                <select id="gender" class="form-control @error('gender') is-invalid @enderror" name="gender" required>
+                                <select id="gender" class="form-control @error('gender') is-invalid @enderror" name="gender">
                                     <option value="male" {{ old('gender') == 'male' ? 'selected' : '' }}>Male</option>
                                     <option value="female" {{ old('gender') == 'female' ? 'selected' : '' }}>Female</option>
                                 </select>
@@ -92,7 +92,7 @@
                             <label for="status" class="col-md-4 col-form-label text-md-right">Status</label>
 
                             <div class="col-md-6">
-                                <select id="status" class="form-control @error('status') is-invalid @enderror" name="status" required>
+                                <select id="status" class="form-control @error('status') is-invalid @enderror" name="status">
                                     <option value="active" {{ old('status') == 'active' ? 'selected' : '' }}>Active</option>
                                     <option value="inactive" {{ old('status') == 'inactive' ? 'selected' : '' }}>Inactive</option>
                                 </select>
@@ -110,7 +110,7 @@
                             <label for="class" class="col-md-4 col-form-label text-md-right">Class</label>
 
                             <div class="col-md-6">
-                                <input id="class" type="text" class="form-control @error('class') is-invalid @enderror" name="class" value="{{ old('class') }}" required>
+                                <input id="class" type="text" class="form-control @error('class') is-invalid @enderror" name="class" value="{{ old('class') }}">
 
                                 @error('class')
                                     <span class="invalid-feedback" role="alert">

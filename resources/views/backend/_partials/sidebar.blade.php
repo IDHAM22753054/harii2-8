@@ -52,6 +52,12 @@
                         <p>Data Teacher</p>
                     </a>
                 </li>
+                <li class="nav-item {{ Request::is('mapel*') ? 'active' : '' }}">
+                    <a href="{{ route('mapel') }}">
+                        <i class="fas fa-users"></i>
+                        <p>Data Mapel</p>
+                    </a>
+                </li>
                 <li class="nav-item">
                     <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                         <i class="fas fa-sign-out-alt"></i>
