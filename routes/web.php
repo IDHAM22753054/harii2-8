@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\TeacherController; // Pastikan untuk menggunakan huruf kapital yang tepat
 use App\Http\Controllers\MapelController;
+use App\Http\Controllers\NilaiController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -58,6 +59,15 @@ Route::middleware('auth', 'verified')->group(function () {
         Route::get('/{id}/edit', [MapelController::class, 'edit'])->name('mapel.edit');
         Route::put('/{id}', [MapelController::class, 'update'])->name('mapel.update');
         Route::delete('/{id}', [MapelController::class, 'destroy'])->name('mapel.destroy');
+    });
+    // route nilai
+    Route::prefix('nilai')->group(function () {
+        Route::get('/', [NilaiController::class, 'index'])->name('nilai');
+        Route::get('/create', [NilaiController::class, 'create'])->name('nilai.create');
+        Route::post('/store', [NilaiController::class, 'store'])->name('nilai.store');
+        Route::get('/{id}/edit', [NilaiController::class, 'edit'])->name('nilai.edit');
+        Route::put('/{id}', [NilaiController::class, 'update'])->name('nilai.update');
+        Route::delete('/{id}', [NilaiController::class, 'destroy'])->name('nilai.destroy');
     });
 });
 
