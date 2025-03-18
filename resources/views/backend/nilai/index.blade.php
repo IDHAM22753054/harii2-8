@@ -34,7 +34,14 @@
                     </div>
                     <div class="card-body">
                         <form action="{{ route('nilai') }}" method="GET" class="d-flex mb-3">
-                            <input type="text" name="search" class="form-control form-control-sm" placeholder="Cari nilai..." value="{{ request()->search }}">
+                            <select name="search" class="form-control form-control-sm select2" style="width: 200px;">
+                                <option value="">Pilih Siswa, Guru, atau Mapel</option>
+                                @foreach($nilais as $nilai)
+                                    <option value="{{ $nilai->student->name }}">{{ $nilai->student->name }}</option>
+                                    <option value="{{ $nilai->teacher->name }}">{{ $nilai->teacher->name }}</option>
+                                    <option value="{{ $nilai->mapel->name }}">{{ $nilai->mapel->name }}</option>
+                                @endforeach
+                            </select>
                             <button type="submit" class="btn btn-primary btn-sm ms-2">Cari</button>
                         </form>
                         
@@ -53,7 +60,7 @@
                                 @foreach ($nilais as $index => $nilai)
                                     <tr>
                                         <td>{{ $index + 1 }}</td>
-                                        <td>{{ $nilai->student->name }}</td> <!-- Ganti student menjadi siswa -->
+                                        <td>{{ $nilai->student->name }}</td>
                                         <td>{{ $nilai->teacher->name }}</td>
                                         <td>{{ $nilai->mapel->name }}</td>
                                         <td>{{ $nilai->nilai }}</td>
@@ -95,6 +102,11 @@
                 }
             })
         }
+
+        // Inisialisasi Select2
+        $(document).ready(function() {
+            $('.select2').select2();
+        });
     </script>
 
     @if (session('success'))

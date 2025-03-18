@@ -11,10 +11,27 @@ use Illuminate\Http\Request;
 class NilaiController extends Controller
 {
     // Menampilkan daftar nilai
-    public function index()
+    public function index(Request $request)
     {
-        // Ambil semua data nilai beserta relasi dengan siswa, guru, dan mata pelajaran
-        $nilais = Nilai::with(['student', 'teacher', 'mapel'])->get(); // Ganti 'siswa' dan 'teacher' sesuai nama relasi
+        // Ambil data nilai beserta relasi dengan siswa, guru, dan mata pelajaran
+        $nilais = Nilai::with(['student', 'teacher', 'mapel']);
+
+        // Cek jika ada query pencarian
+        if ($request->has('search') && $request->search != '') {
+            $search = $request->search;
+            $nilais = $nilais->whereHas('student', function ($query) use ($search) {
+                $query->where('name', 'like', '%' . $search . '%');
+            })
+            ->orWhereHas('teacher', function ($query) use ($search) {
+                $query->where('name', 'like', '%' . $search . '%');
+            })
+            ->orWhereHas('mapel', function ($query) use ($search) {
+                $query->where('name', 'like', '%' . $search . '%');
+            });
+        }
+
+        // Ambil data setelah filter pencarian
+        $nilais = $nilais->get();
 
         return view('backend.nilai.index', compact('nilais')); // Mengirim data ke view index
     }
