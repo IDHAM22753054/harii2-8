@@ -19,7 +19,7 @@ return new class extends Migration
             $table->integer('class');
             $table->string('address');
             $table->enum('gender', ['L', 'P']);
-            $table->enum('status', ['Aktif', 'Tidak Aktif']);
+            $table->enum('status', ['active', 'inactive']);
             $table->timestamps();
         });
     }

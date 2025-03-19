@@ -76,8 +76,8 @@
 
                             <div class="col-md-6">
                                 <select id="gender" class="form-control @error('gender') is-invalid @enderror" name="gender">
-                                    <option value="male" {{ old('gender') == 'male' ? 'selected' : '' }}>Male</option>
-                                    <option value="female" {{ old('gender') == 'female' ? 'selected' : '' }}>Female</option>
+                                    <option value="male" {{ old('gender') == 'L' ? 'selected' : '' }}>L</option>
+                                    <option value="female" {{ old('gender') == 'P' ? 'selected' : '' }}>P</option>
                                 </select>
 
                                 @error('gender')

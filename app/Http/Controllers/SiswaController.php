@@ -79,7 +79,7 @@ class SiswaController extends Controller
             'email' => 'required|email',
             'phone' => 'nullable|string|max:15',
             'addres' => 'nullable|string|max:500', // Validasi addres (address)
-            'gender' => 'nullable|in:male,female', // Validasi gender
+            'gender' => 'nullable|in:L,P', // Validasi gender
             'status' => 'nullable|in:active,inactive', // Validasi status
             'class' => 'nullable|string|max:50', // Validasi class
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Validasi gambar
@@ -111,7 +111,7 @@ class SiswaController extends Controller
             'updated_at' => now(),
         ]);
 
-        return redirect()->route('siswa.')->with('success', 'Siswa berhasil diperbarui!');
+        return redirect()->route('siswa')->with('success', 'Siswa berhasil diperbarui!');
     }
 
     // Menghapus siswa

@@ -28,7 +28,7 @@ class StoreSiswaRequest extends FormRequest
             'class' => 'required',
             'address' => 'required',
             'gender' => 'required|in:L,P',
-            'status' => 'required|in:Aktif,Tidak Aktif',
+            'status' => 'required|in:Active,Tidak Aktif',
             'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ];
     }
